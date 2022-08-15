@@ -21,13 +21,9 @@ pipeline {
                 dir('dev'){
                     sh 'ls -la'
                 } 
-            }
-
-            steps {
                 sh 'ls -la'
                 sh 'terragrunt run-all plan'
             }
-
         }
     } 
 }
