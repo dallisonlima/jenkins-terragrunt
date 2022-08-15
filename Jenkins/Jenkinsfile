@@ -16,9 +16,13 @@ pipeline {
           }
         }
 
-        // dir(/terragrunt){
-        //     sh 'pwd'
-        // }
+        stage('test') {
+            steps {
+              dir('terragrunt') {
+                  sh'ls -la'
+              }
+            }
+        }
 
         stage('Plan'){
             when {
