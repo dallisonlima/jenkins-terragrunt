@@ -6,11 +6,11 @@ pipeline {
         }
     }
 
-    parameters {
-        booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
-        booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
+    // parameters {
+    //     booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
+    //     booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
 
-    }
+    // }
 
     stages {
         stage('Checkout') {
