@@ -51,30 +51,30 @@ pipeline {
             
             steps {
                 sh 'ls -la'
-                sh 'terragrunt plan -input=false -out=tfplan'
-                sh 'terragrunt show -no-color tfplan > tfplan.txt' 
+                sh 'terragrunt plan'
+                // sh 'terragrunt show -no-color tfplan > tfplan.txt' 
                 // sh 'aws s3 cp ./tfplan.txt s3://dallison-state-terraform/last-tfplan/' 
             }
         }
 
-        stage('Approval') {
-            steps {
-                script {
-                    def test = params.Destroy
-                    if (test == true) {
-                        script {
-                            def userInput = input(id: 'Confirm', message: 'Deseja fazer o destroy do terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Destroy terraform', name: 'Confirm'] ])
-                        }
-                    } else {
-                        script {
-                            def plan = readFile 'tfplan.txt'
-                            input message: "Do you want to Apply",
-                            parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Approval') {
+        //     steps {
+        //         script {
+        //             def test = params.Destroy
+        //             if (test == true) {
+        //                 script {
+        //                     def userInput = input(id: 'Confirm', message: 'Deseja fazer o destroy do terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Destroy terraform', name: 'Confirm'] ])
+        //                 }
+        //             } else {
+        //                 script {
+        //                     def plan = readFile 'tfplan.txt'
+        //                     input message: "Do you want to Apply",
+        //                     parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
         stage('Apply') {
             when {
@@ -84,7 +84,7 @@ pipeline {
             }
             
             steps {
-                sh "terragrunt apply --auto-approve"
+                // sh "terragrunt apply --auto-approve"
             }
         }
         
