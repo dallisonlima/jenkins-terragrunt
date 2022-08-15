@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'alpine/terragrunt:latest'
+        }
+    }
 
     parameters {
         booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
@@ -14,14 +18,6 @@ pipeline {
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/dallisonlima/jenkins-terraform']]])            
 
           }
-        }
-
-        stage('Infracost') {
-            agent {
-                docker {
-                    image 'alpine/terragrunt:latest'
-                }
-            }
         }
 
         stage('Init'){
