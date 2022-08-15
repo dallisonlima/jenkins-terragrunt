@@ -31,5 +31,6 @@ pipeline {
                 sh 'terragrunt run-all plan'
             }
             
-        }   
+        }
+    } 
 }
