@@ -16,27 +16,18 @@ pipeline {
           }
         }
 
-        stage('test') {
+        stage('Plan') {
             steps {
-                sh 'ls -la'
-                
                 dir('dev'){
                     sh 'ls -la'
-                }
+                } 
             }
-        }
 
-        stage('Plan'){
-            when {
-                not {
-                    equals expected: true, actual: params.Destroy
-                }
-            }
             steps {
                 sh 'ls -la'
                 sh 'terragrunt run-all plan'
             }
-            
+
         }
     } 
 }
