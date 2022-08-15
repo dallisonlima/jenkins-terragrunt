@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'hashicorp/terragrunt:0.23.5'
+            image 'alpine/terragrunt:latest'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
