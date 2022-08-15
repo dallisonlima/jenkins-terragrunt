@@ -16,8 +16,10 @@ pipeline {
                 }   
         }
 
-        dir(dev){
-            sh 'pwd'
+        stage('teste'){
+            dir(dev){
+                sh 'pwd'
+            }
         }
 
         stage('Init'){
