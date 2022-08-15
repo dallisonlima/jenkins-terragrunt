@@ -13,8 +13,15 @@ pipeline {
             steps {
                 git "https://github.com/dallisonlima/jenkins-terragrunt"
                 sh 'ls -la'
-                }       
-            }
+                }
+            steps {
+                    sh "pwd"
+                dir('your-sub-directory') {
+                    sh "pwd"
+                }
+                    sh "pwd"
+            }       
+        }
 
         
 
@@ -36,11 +43,9 @@ pipeline {
                     equals expected: true, actual: params.Destroy
                 }
             }
-
             steps{
                 sh 'terragrunt init"'
             }
-            
         }
 
         stage('Plan') {
