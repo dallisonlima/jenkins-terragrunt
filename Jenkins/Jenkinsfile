@@ -19,7 +19,9 @@ pipeline {
         stage('teste'){
             steps{
                 dir(dev){
+                sh 'ls -la'
                 sh 'pwd'
+                sh 'ls -la'
             }
             }
             
