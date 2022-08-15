@@ -9,12 +9,13 @@ pipeline {
 
 
     stages {
-        stage('Checkout') {
+        stage('checkout') {
             steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/dallisonlima/jenkins-terraform']]])            
-
-          }
-        }
+                git "https://github.com/dallisonlima/jenkins-terragrunt"
+                sh 'ls -la'
+                sh 'cd dev && cd us-east-1'
+                }
+            }
 
         // stage('Infracost') {
         //     agent {
