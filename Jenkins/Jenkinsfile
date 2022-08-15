@@ -16,15 +16,15 @@ pipeline {
                 }   
         }
 
-        stage('teste'){
-            steps{
-                dir('/jenkins-terragrunt/dev'){
-                sh 'pwd'
-                sh 'ls -la'
-            }
-            }
+        // stage('teste'){
+        //     steps{
+        //         dir('/jenkins-terragrunt/dev'){
+        //         sh 'pwd'
+        //         sh 'ls -la'
+        //     }
+        //     }
             
-        }
+        // }
 
         stage('Init'){
             when{
