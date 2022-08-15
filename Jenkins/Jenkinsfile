@@ -14,10 +14,10 @@ pipeline {
                 git "https://github.com/dallisonlima/jenkins-terragrunt"
                 sh 'ls -la'
                 }
-            steps{
-                dir("dev"){
-                    sh "pwd"
-                }
+            // steps{
+            //     dir("dev"){
+            //         sh "pwd"
+            //     }
             }
                 
             }
