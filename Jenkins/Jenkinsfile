@@ -28,20 +28,22 @@ pipeline {
         //     }  
         // }
 
+        dir(/terragrunt/dev){
+            sh 'pwd'
+        }
+
         stage('Plan') {
             when {
                 not {
                     equals expected: true, actual: params.Destroy
                 }
             }
-                dir(/terragrunt/dev){
-                    steps {
-                    sh 'ls -la'
-                    sh 'terragrunt run-all plan'
-                    // sh 'terragrunt plan -input=false -out=tfplan'
-                    // sh 'terraform show -no-color tfplan > tfplan.txt' 
-                    // sh 'aws s3 cp ./tfplan.txt s3://dallison-state-terraform/last-tfplan/' 
-                }
+            steps {
+            sh 'ls -la'
+            sh 'terragrunt run-all plan'
+            // sh 'terragrunt plan -input=false -out=tfplan'
+            // sh 'terraform show -no-color tfplan > tfplan.txt' 
+            // sh 'aws s3 cp ./tfplan.txt s3://dallison-state-terraform/last-tfplan/' 
             }
             
         }
