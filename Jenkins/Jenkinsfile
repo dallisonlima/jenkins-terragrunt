@@ -21,6 +21,9 @@ pipeline {
               dir('terragrunt') {
                   sh'ls -la'
               }
+              dir('dev'){
+                sh 'ls -la'
+              }
             }
         }
 
