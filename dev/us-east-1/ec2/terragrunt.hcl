@@ -8,7 +8,6 @@ include {
 
 locals {
   env_vars = yamldecode(file(find_in_parent_folders("env.yaml")))
-
   webpage    = base64encode(templatefile(find_in_parent_folders("files/template/index.html"), { env = local.env_vars.env }))
   nginx_conf = filebase64(find_in_parent_folders("files/template/hello.conf"))
 }
