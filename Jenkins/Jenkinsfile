@@ -13,7 +13,7 @@ pipeline {
             steps {
                 git "https://github.com/dallisonlima/jenkins-terragrunt"
                 sh 'ls -la'
-                sh 'cd dev'
+                sh "cd dev"
                 }
             }
 
