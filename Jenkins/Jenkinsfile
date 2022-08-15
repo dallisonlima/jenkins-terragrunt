@@ -14,10 +14,12 @@ pipeline {
                 git "https://github.com/dallisonlima/jenkins-terragrunt"
                 sh 'ls -la'
                 }
-                dir("dev"){
+                
+            }
+            
+        dir("dev"){
                     sh "pwd"
                 }
-            }
 
         // stage('Infracost') {
         //     agent {
