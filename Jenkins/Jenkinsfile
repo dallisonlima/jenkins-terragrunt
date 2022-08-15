@@ -19,12 +19,10 @@ pipeline {
         stage('test') {
             steps {
                 sh 'ls -la'
-              dir('terragrunt') {
-                  sh'ls -la'
-              }
-              dir('dev'){
-                sh 'ls -la'
-              }
+                
+                dir('dev'){
+                    sh 'ls -la'
+                }
             }
         }
 
