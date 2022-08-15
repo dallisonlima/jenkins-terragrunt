@@ -17,9 +17,12 @@ pipeline {
         }
 
         stage('teste'){
-            dir(dev){
+            steps{
+                dir(dev){
                 sh 'pwd'
             }
+            }
+            
         }
 
         stage('Init'){
