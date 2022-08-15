@@ -37,8 +37,7 @@ pipeline {
             
             steps {
                 sh 'ls -la'
-                // sh 'cd /terragrunt'
-                // sh 'ls -la'
+                sh 'cd /terragrunt'
                 sh 'terragrunt run-all plan'
                 // sh 'terragrunt plan -input=false -out=tfplan'
                 // sh 'terraform show -no-color tfplan > tfplan.txt' 
