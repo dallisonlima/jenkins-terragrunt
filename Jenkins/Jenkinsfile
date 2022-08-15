@@ -16,17 +16,17 @@ pipeline {
           }
         }
 
-        stage('Infracost') {
-            agent {
-                docker {
-                    image 'infracost/infracost:latest'
-                }
-            }
-            steps {
-                echo 'Executing Infracost'
-                sh 'infracost breakdown --path'
-            }
-        }
+        // stage('Infracost') {
+        //     agent {
+        //         docker {
+        //             image 'infracost/infracost:latest'
+        //         }
+        //     }
+        //     steps {
+        //         echo 'Executing Infracost'
+        //         sh 'infracost breakdown --path'
+        //     }
+        // }
 
         stage('Init'){
             when{
@@ -37,7 +37,7 @@ pipeline {
 
             steps{
                 sh 'ls -la'
-                sh 'terraform init -input=false -backend-config="key=states/terraform.tfstate"'
+                sh 'terragrunt init"'
             }
             
         }
@@ -51,9 +51,9 @@ pipeline {
             
             steps {
                 sh 'ls -la'
-                sh 'terraform plan -input=false -out=tfplan'
-                sh 'terraform show -no-color tfplan > tfplan.txt' 
-                sh 'aws s3 cp ./tfplan.txt s3://dallison-state-terraform/last-tfplan/' 
+                sh 'terragrunt plan -input=false -out=tfplan'
+                // sh 'terraform show -no-color tfplan > tfplan.txt' 
+                // sh 'aws s3 cp ./tfplan.txt s3://dallison-state-terraform/last-tfplan/' 
             }
         }
 
@@ -84,7 +84,7 @@ pipeline {
             }
             
             steps {
-                sh "terraform apply -input=false tfplan"
+                sh "terragrunt apply --auto-approve"
             }
         }
         
@@ -94,7 +94,7 @@ pipeline {
             }
         
         steps {
-           sh "terraform destroy --auto-approve"
+           sh "terragrunt destroy --auto-approve"
         }
     }
 
