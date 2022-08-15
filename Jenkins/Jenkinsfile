@@ -28,7 +28,7 @@ pipeline {
         //     }  
         // }
 
-        dir(/terragrunt){
+        dir('/terragrunt'){
             sh 'pwd'
         }
 
