@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent{
+
+    }
 
     parameters {
         booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
@@ -17,6 +19,13 @@ pipeline {
         }
 
         stage('Plan') {
+
+            agent {
+                docker {
+                    image 'alpine/terragrunt:latest'
+                    reuseNode true
+            }
+
             steps {
                 dir('dev'){
                     sh 'ls -la'
