@@ -36,7 +36,7 @@ pipeline {
             }
             
             steps {
-                sh 'cd /dev'
+                sh 'cd /terragrunt'
                 sh 'ls -la'
                 sh 'terragrunt run-all plan'
                 // sh 'terragrunt plan -input=false -out=tfplan'
