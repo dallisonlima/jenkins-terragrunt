@@ -18,8 +18,7 @@ pipeline {
 
         stage('teste'){
             steps{
-                dir('/dev'){
-                sh 'ls -la'
+                dir('/jenkins-terragrunt/dev'){
                 sh 'pwd'
                 sh 'ls -la'
             }
