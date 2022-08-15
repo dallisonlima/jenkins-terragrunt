@@ -1,5 +1,5 @@
 terraform {
-  source = "github.com/terraform-aws-modules/terraform-aws-iam//modules/iam-assumable-role?ref=v4.2.0"
+  source = "https://github.com/terraform-aws-modules/terraform-aws-iam//modules/iam-assumable-role?ref=v4.2.0"
 }
 
 include {
