@@ -26,16 +26,16 @@ pipeline {
             
         // }
 
-        stage('Init'){
-            when{
-                not{
-                    equals expected: true, actual: params.Destroy
-                }
-            }
-            steps{
-                sh 'terragrunt init"'
-            }
-        }
+        // stage('Init'){
+        //     when{
+        //         not{
+        //             equals expected: true, actual: params.Destroy
+        //         }
+        //     }
+        //     steps{
+        //         sh 'terragrunt init"'
+        //     }
+        // }
 
         stage('Plan') {
             when {
