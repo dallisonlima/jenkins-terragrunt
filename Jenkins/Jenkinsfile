@@ -53,7 +53,10 @@ pipeline {
             }
             
             steps {
-                sh "terragrunt apply"
+                dir('dev/us-east-1/vpc'){
+                    sh 'ls -la'
+                    sh 'terragrunt apply -auto-approve'
+                }
             }
         }
         
