@@ -38,8 +38,7 @@ pipeline {
                         }
                     } else {
                         script {
-                            input message: "Do you want to Apply",
-                            parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                            def userInputs = input(id: 'Confirm', message: 'Deseja fazer o Apply do terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'Confirm'] ])
                         }
                     }
                 }
