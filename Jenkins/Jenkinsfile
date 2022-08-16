@@ -6,10 +6,10 @@ pipeline {
     //     AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     // }
 
-    // parameters {
-    //     booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
-    //     booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
-    // }
+    parameters {
+        booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
+        booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
+    }
 
     stages {
         stage('Checkout') {
@@ -23,50 +23,50 @@ pipeline {
             steps {
                 dir('dev/us-east-1/vpc'){
                     sh 'ls -la'
-                    sh 'terragrunt plan'
+                    sh 'terragrunt plan -out=tfplan.txt'
                 } 
             }
         }
 
-        // stage('Approval') {
-        //     steps {
-        //         script {
-        //             def test = params.Destroy
-        //             if (test == true) {
-        //                 script {
-        //                     def userInput = input(id: 'Confirm', message: 'Deseja fazer o destroy do terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Destroy terraform', name: 'Confirm'] ])
-        //                 }
-        //             } else {
-        //                 script {
-        //                     def plan = readFile 'tfplan.txt'
-        //                     input message: "Do you want to Apply",
-        //                     parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Approval') {
+            steps {
+                script {
+                    def test = params.Destroy
+                    if (test == true) {
+                        script {
+                            def userInput = input(id: 'Confirm', message: 'Deseja fazer o destroy do terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Destroy terraform', name: 'Confirm'] ])
+                        }
+                    } else {
+                        script {
+                            def plan = readFile 'tfplan.txt'
+                            input message: "Do you want to Apply",
+                            parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                        }
+                    }
+                }
+            }
+        }
 
-        // stage('Apply') {
-        //     when {
-        //         not {
-        //             equals expected: true, actual: params.Destroy
-        //         }
-        //     }
+        stage('Apply') {
+            when {
+                not {
+                    equals expected: true, actual: params.Destroy
+                }
+            }
             
-        //     steps {
-        //         sh "terraform apply -input=false tfplan"
-        //     }
-        // }
+            steps {
+                sh "terragrunt apply --auto-approve"
+            }
+        }
         
-        // stage('Destroy') {
-        //     when {
-        //         equals expected: true, actual: params.Destroy
-        //     }
+        stage('Destroy') {
+            when {
+                equals expected: true, actual: params.Destroy
+            }
         
-        //     steps {
-        //     sh "terraform destroy --auto-approve"
-        //     }
-        // }
+            steps {
+            sh "terragrunt destroy --auto-approve"
+            }
+        }
     } 
 }
