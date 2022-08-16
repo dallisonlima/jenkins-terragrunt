@@ -51,11 +51,11 @@ pipeline {
                     equals expected: true, actual: params.Destroy
                 }
             }
-        }    
-        //     steps {
-        //         sh "terragrunt apply --auto-approve"
-        //     }
-        // }
+            
+            steps {
+                sh "terragrunt apply --auto-approve"
+            }
+        }
         
         // stage('Destroy') {
         //     when {
