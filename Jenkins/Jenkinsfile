@@ -24,8 +24,7 @@ pipeline {
             steps {
                 dir('dev'){
                     sh 'ls -la'
-                    sh 'terragrunt run-all init'
-                    sh 'terragrunt run-all plan'
+                    sh 'terragrunt run-all plan -input=false -out=tfplan'
                 } 
             }
         }
