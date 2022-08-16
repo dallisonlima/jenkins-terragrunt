@@ -1,5 +1,5 @@
 terraform {
-  source = "https://github.com/terraform-aws-modules/terraform-aws-security-group//modules/http-80?ref=v3.18.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-security-group//modules/http-80//.?ref=v3.18.0"
 }
 
 include {
