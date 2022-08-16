@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir('dev/us-east-1/vpc'){
                     sh 'ls -la'
-                    sh 'terragrunt plan -out=tfplan.txt'
+                    sh 'terragrunt plan'
                 } 
             }
         }
@@ -38,7 +38,6 @@ pipeline {
                         }
                     } else {
                         script {
-                            def plan = readFile 'tfplan.txt'
                             input message: "Do you want to Apply",
                             parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                         }
