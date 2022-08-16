@@ -16,7 +16,7 @@ pipeline {
 
         stage('Plan') {
             steps {
-                dir('dev'){
+                dir('dev/us-east-1'){
                     sh 'ls -la'
                     sh 'terragrunt plan'
                 } 
