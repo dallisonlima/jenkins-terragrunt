@@ -55,19 +55,22 @@ pipeline {
             steps {
                 dir('dev/us-east-1/vpc'){
                     sh 'ls -la'
-                    sh 'terragrunt apply -auto-approve'
+                    sh 'terragrunt apply --auto-approve'
                 }
             }
         }
         
-        // stage('Destroy') {
-        //     when {
-        //         equals expected: true, actual: params.Destroy
-        //     }
+        stage('Destroy') {
+            when {
+                equals expected: true, actual: params.Destroy
+            }
         
-        //     steps {
-        //     sh "terragrunt destroy --auto-approve"
-        //     }
-        // }
+            steps {
+                dir('dev/us-east-1/vpc'){
+                        sh 'ls -la'
+                        sh 'terragrunt destroy --auto-approve'
+                    }
+            }
+        }
     } 
 }
