@@ -16,10 +16,9 @@ pipeline {
 
         stage('Plan') {
             steps {
-                dir('dev'){
+                dir('/dev/us-east-1/vpc'){
                     sh 'ls -la'
-                    sh 'terragrunt run-all init'
-                    sh 'terragrunt run-all plan'
+                    sh 'terragrunt plan'
                 } 
             }
         }
