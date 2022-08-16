@@ -53,7 +53,7 @@ pipeline {
             }
             
             steps {
-                sh "terragrunt apply --auto-approve"
+                sh "terragrunt apply"
             }
         }
         
