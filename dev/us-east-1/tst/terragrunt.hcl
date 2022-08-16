@@ -2,11 +2,11 @@ terraform {
   source = "tfr:///terraform-aws-modules/ec2-instance/aws//.?version=4.0.0"
 }
 
-locals {
-  env_vars = yamldecode(
-  file("${find_in_parent_folders("common-environment.yaml")}"),
-  )
-}
+// locals {
+//   env_vars = yamldecode(
+//   file("${find_in_parent_folders("common-environment.yaml")}"),
+//   )
+// }
 
 /*include {
   path = find_in_parent_folders()
@@ -24,8 +24,8 @@ EOF
 }
 
 inputs = {
-  ami           = "ami-0767046d1677be5a0"
-  instance_type = local.env_vars.locals.instance_type
+  ami           = "ami-052efd3df9dad4825"
+  instance_type = "t2.micro"
   tags = {
     Name = "Terragrunt Tutorial: EC2"
   }
