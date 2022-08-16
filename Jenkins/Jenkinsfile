@@ -9,7 +9,6 @@ pipeline {
     // parameters {
     //     booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
     //     booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
-
     // }
 
     stages {
@@ -24,7 +23,8 @@ pipeline {
             steps {
                 dir('dev'){
                     sh 'ls -la'
-                    sh 'terragrunt run-all plan -out=tfplan'
+                    sh 'terragrunt run-all init'
+                    sh 'terragrunt run-all plan -input=false -out=tfplan'
                 } 
             }
         }
