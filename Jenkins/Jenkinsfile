@@ -6,11 +6,11 @@ pipeline {
         }
     }
 
-    // parameters {
-    //     booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
-    //     booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
+    parameters {
+        booleanParam(name: 'Apply', defaultValue: false, description: 'Automatically run apply after manual approval?')
+        booleanParam(name: 'Destroy', defaultValue: false, description: 'Destroy Terraform build?')
 
-    // }
+    }
 
     stages {
         stage('Checkout') {
@@ -27,6 +27,47 @@ pipeline {
                     sh 'terragrunt run-all init'
                     sh 'terragrunt run-all plan'
                 } 
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                script {
+                    def test = params.Destroy
+                    if (test == true) {
+                        script {
+                            def userInput = input(id: 'Confirm', message: 'Deseja fazer o destroy do terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Destroy terraform', name: 'Confirm'] ])
+                        }
+                    } else {
+                        script {
+                            def plan = readFile 'tfplan.txt'
+                            input message: "Do you want to Apply",
+                            parameters: [string(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Apply') {
+            when {
+                not {
+                    equals expected: true, actual: params.Destroy
+                }
+            }
+            
+            steps {
+                sh "terraform apply -input=false tfplan"
+            }
+        }
+        
+        stage('Destroy') {
+            when {
+                equals expected: true, actual: params.Destroy
+            }
+        
+            steps {
+            sh "terraform destroy --auto-approve"
             }
         }
     } 

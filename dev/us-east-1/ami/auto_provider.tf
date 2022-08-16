@@ -3,10 +3,10 @@ provider "aws" {
   region = "us-east-1"
   default_tags {
     tags = {
-      "Env" : "dev"
-      "Region" : "us-east-1"
-      "managed_by" : "Terraform"
+      "Env": "dev"
+"Region": "us-east-1"
+"managed_by": "Terraform"
 
     }
-  }
+  } 
 }
