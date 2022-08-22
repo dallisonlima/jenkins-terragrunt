@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment{
-        SVC_ACCOUNT_KEY = credentials('svc-jenkins-cicd.projeto-bureau-hml')
+        SVC_ACCOUNT_KEY = credentials('jenkins-pipeline')
     }
 
     parameters {
