@@ -23,6 +23,7 @@ pipeline {
             steps {
                 dir('dev/us-east-1/vpc'){
                     sh 'ls -la'
+                    sh 'cat ~/.aws/credentials'
                     sh 'terragrunt plan'
                 } 
             }
