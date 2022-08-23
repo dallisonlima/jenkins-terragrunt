@@ -12,11 +12,19 @@ generate "provider" {
   contents  = <<-EOF
     provider "aws" {
       region = "${local.region_vars.aws_region}"
+      assume_role = {
+        role_arn = var.assume_role
+      }
       default_tags {
         tags = {
           ${yamlencode(local.common_tags)}
         }
       } 
+    }
+
+    variable "assume_role" {
+      type = string
+      default = 
     }
   EOF
 }
