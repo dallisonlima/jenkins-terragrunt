@@ -24,7 +24,7 @@ generate "provider" {
 
     variable "assume_role" {
       type = string
-      default = 
+      default = arn:aws:iam::802820427193:role/jenkins-role
     }
   EOF
 }
